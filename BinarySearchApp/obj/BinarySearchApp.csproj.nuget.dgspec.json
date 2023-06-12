@@ -92,7 +92,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\USB Drive\\ايهاب\\c#\\proffitional\\WEB\\NORMAL\\BinarySearchApp\\Domains\\Domains.csproj": {
+                "projectPath": "D:\\USB Drive\\ايهاب\\c#\\proffitional\\WEB\\NORMAL\\BinarySearchApp\\Domains\\Domains.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
