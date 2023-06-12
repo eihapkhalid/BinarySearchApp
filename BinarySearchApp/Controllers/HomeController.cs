@@ -7,21 +7,53 @@ namespace BinarySearchApp.Controllers
 {
     public class HomeController : Controller
     {
-            public IActionResult Index()
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(BinarySearchViewModel model)
+        {
+            if (ModelState.IsValid)
             {
-                return View();
+                int[] array = model.SearchArray;
+                int element = model.SearchElement;
             }
 
-            [HttpPost]
-            public IActionResult Index(BinarySearchViewModel model)
+            return View(model);
+        }
+
+        #region BinarySearch
+        private int BinarySearch(int[] array, int element)
+        {
+            int left = 0;
+            int right = array.Length - 1;
+            int result = -1;
+
+            while (left <= right)
             {
-                if (ModelState.IsValid)
+                int mid = left + (right - left) / 2;
+
+                if (array[mid] == element)
                 {
-                    int[] array = model.SearchArray;
-                    int element = model.SearchElement;
+                    result = mid;
+                    break;
                 }
 
-                return View(model);
+                if (array[mid] < element)
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid - 1;
+                }
             }
+
+            return result;
+        } 
+        #endregion
     }
+
 }
