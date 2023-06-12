@@ -19,6 +19,19 @@ namespace BinarySearchApp.Controllers
             {
                 int[] array = model.SearchArray;
                 int element = model.SearchElement;
+
+                int result = BinarySearch(array, element);
+
+                if (result != -1)
+                {
+                    // The item has been found
+                    ViewBag.Result = $"Element {element} found at index {result}";
+                }
+                else
+                {
+                    // Item not found
+                    ViewBag.Result = $"Element {element} not found in the array";
+                }
             }
 
             return View(model);
