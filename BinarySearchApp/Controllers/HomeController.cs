@@ -1,4 +1,5 @@
 ﻿using BinarySearchApp.Models;
+using Domains.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,27 +7,21 @@ namespace BinarySearchApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+            public IActionResult Index()
+            {
+                return View();
+            }
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+            [HttpPost]
+            public IActionResult Index(BinarySearchViewModel model)
+            {
+                if (ModelState.IsValid)
+                {
+                    int[] array = model.SearchArray;
+                    int element = model.SearchElement;
+                }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+                return View(model);
+            }
     }
 }
