@@ -28,7 +28,12 @@ namespace BinarySearchApp.Controllers
                     if (isNumericOrOrdered)
                     {
                         int[] array = model.SearchArray.Split(' ').Where(str => int.TryParse(str, out _)).Select(int.Parse).ToArray();
-                        int element = Convert.ToInt32(searchTerm);
+                        int element = 0;
+
+                        if (int.TryParse(searchTerm, out int parsedElement))
+                        {
+                            element = parsedElement;
+                        }
 
                         int result = BinarySearch(array, element);
 
@@ -57,7 +62,6 @@ namespace BinarySearchApp.Controllers
                     }
                 }
             }
-
             return View(model);
         }
 
@@ -83,7 +87,7 @@ namespace BinarySearchApp.Controllers
             }
 
             return true;
-        } 
+        }
         #endregion
 
         #endregion
@@ -118,6 +122,7 @@ namespace BinarySearchApp.Controllers
             return result;
         }
         #endregion
+
 
 
 
