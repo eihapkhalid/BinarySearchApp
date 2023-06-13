@@ -10,6 +10,6 @@ namespace Domains.ViewModels
     {
         //public int[] SearchArray { get; set; }
         public string SearchArray { get; set; }
-        public int SearchElement { get; set; }
+        public string SearchElement { get; set; }
     }
 }

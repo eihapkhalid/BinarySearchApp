@@ -11,10 +11,10 @@ namespace BinarySearchApp.Controllers
         public IActionResult Index()
         {
             return View();
-        } 
+        }
         #endregion
 
-        #region Post String Text And Convert It To Array 
+        #region Post String Text And Convert It To Array
         [HttpPost]
         public IActionResult Index(BinarySearchViewModel model)
         {
@@ -22,28 +22,28 @@ namespace BinarySearchApp.Controllers
             {
                 if (!string.IsNullOrEmpty(model.SearchArray))
                 {
-                    int[] array = model.SearchArray.Split(' ').Select(int.Parse).ToArray();
-                    int element = model.SearchElement;
+                    string text = model.SearchArray;
+                    string word = model.SearchElement;
 
-                    int result = BinarySearch(array, element);
+                    int result = text.IndexOf(word);
 
                     if (result != -1)
                     {
-                        ViewBag.Result = $"Element {element} found at index {result}";
+                        ViewBag.Result = $"Word '{word}' found at index {result}";
                     }
                     else
                     {
-                        ViewBag.Result = $"Element {element} not found in the array";
+                        ViewBag.Result = $"Word '{word}' not found in the text";
                     }
                 }
             }
 
             return View(model);
-        } 
+        }
         #endregion
 
         #region BinarySearch
-        private int BinarySearch(int[] array, int element)
+        private int BinarySearch(string[] array, string element)
         {
             int left = 0;
             int right = array.Length - 1;
@@ -53,13 +53,13 @@ namespace BinarySearchApp.Controllers
             {
                 int mid = left + (right - left) / 2;
 
-                if (array[mid] == element)
+                if (array[mid].Contains(element))
                 {
                     result = mid;
                     break;
                 }
 
-                if (array[mid] < element)
+                if (string.Compare(array[mid], element) < 0)
                 {
                     left = mid + 1;
                 }
@@ -70,8 +70,12 @@ namespace BinarySearchApp.Controllers
             }
 
             return result;
-        } 
+        }
         #endregion
+
+
+
+
     }
 
 }
