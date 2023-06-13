@@ -7,35 +7,40 @@ namespace BinarySearchApp.Controllers
 {
     public class HomeController : Controller
     {
+        #region Index Page
         public IActionResult Index()
         {
             return View();
-        }
+        } 
+        #endregion
 
+        #region Post String Text And Convert It To Array 
         [HttpPost]
         public IActionResult Index(BinarySearchViewModel model)
         {
             if (ModelState.IsValid)
             {
-                int[] array = model.SearchArray;
-                int element = model.SearchElement;
-
-                int result = BinarySearch(array, element);
-
-                if (result != -1)
+                if (!string.IsNullOrEmpty(model.SearchArray))
                 {
-                    // The item has been found
-                    ViewBag.Result = $"Element {element} found at index {result}";
-                }
-                else
-                {
-                    // Item not found
-                    ViewBag.Result = $"Element {element} not found in the array";
+                    int[] array = model.SearchArray.Split(' ').Select(int.Parse).ToArray();
+                    int element = model.SearchElement;
+
+                    int result = BinarySearch(array, element);
+
+                    if (result != -1)
+                    {
+                        ViewBag.Result = $"Element {element} found at index {result}";
+                    }
+                    else
+                    {
+                        ViewBag.Result = $"Element {element} not found in the array";
+                    }
                 }
             }
 
             return View(model);
-        }
+        } 
+        #endregion
 
         #region BinarySearch
         private int BinarySearch(int[] array, int element)

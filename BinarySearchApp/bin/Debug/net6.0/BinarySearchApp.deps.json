@@ -1,0 +1,50 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "BinarySearchApp/1.0.0": {
+        "dependencies": {
+          "Bl": "1.0.0",
+          "Domains": "1.0.0"
+        },
+        "runtime": {
+          "BinarySearchApp.dll": {}
+        }
+      },
+      "Bl/1.0.0": {
+        "dependencies": {
+          "Domains": "1.0.0"
+        },
+        "runtime": {
+          "Bl.dll": {}
+        }
+      },
+      "Domains/1.0.0": {
+        "runtime": {
+          "Domains.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BinarySearchApp/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Bl/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Domains/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

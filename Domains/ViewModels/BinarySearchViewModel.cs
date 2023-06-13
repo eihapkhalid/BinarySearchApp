@@ -8,7 +8,8 @@ namespace Domains.ViewModels
 {
     public class BinarySearchViewModel
     {
-        public int[] SearchArray { get; set; }
+        //public int[] SearchArray { get; set; }
+        public string SearchArray { get; set; }
         public int SearchElement { get; set; }
     }
 }
