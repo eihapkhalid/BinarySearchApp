@@ -31,7 +31,8 @@
     <form asp-action="Index" asp-controller="Home" method="post">
         <div class="form-group">
             <label asp-for="SearchArray">Array:</label>
-            <input asp-for="SearchArray" type="text" id="SearchArray" name="SearchArray" class="form-control" />
+            <!--// User Enter Number No else !-->
+            <input asp-for="SearchArray" type="text" id="SearchArray" name="SearchArray" class="form-control" onkeypress="return isNumber(event)" />
         </div>
         <div class="form-group">
             <label asp-for="SearchElement">Element:</label>
@@ -47,3 +48,14 @@
             </div>
     }
 </div>
+
+<!-- // User Enter Number No else ! -->
+<script>
+    function isNumber(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+</script>
