@@ -23,27 +23,35 @@ namespace BinarySearchApp.Controllers
                 if (!string.IsNullOrEmpty(model.SearchArray))
                 {
                     string searchTerm = model.SearchElement;
-                    bool isNumericOrOrdered = IsNumericOrOrderedString(searchTerm);
+                    //bool isNumericOrOrdered = IsNumericOrOrderedString(searchTerm);
+                    bool isNumericOrOrdered = IsNumericOrOrderedString(searchTerm) || IsAlphabeticallyOrderedString(searchTerm);
 
                     if (isNumericOrOrdered)
                     {
-                        int[] array = model.SearchArray.Split(' ').Where(str => int.TryParse(str, out _)).Select(int.Parse).ToArray();
+                        //int[] array = model.SearchArray.Split(' ').Where(str => int.TryParse(str, out _)).Select(int.Parse).ToArray();
+                        string[] array = model.SearchArray.Split(' ');
+
+                        int result = -1;
                         int element = 0;
 
                         if (int.TryParse(searchTerm, out int parsedElement))
                         {
                             element = parsedElement;
-                        }
-
-                        int result = BinarySearch(array, element);
-
-                        if (result != -1)
-                        {
-                            ViewBag.Result = $"Element {element} found at index {result}";
+                            string[] stringArray = array.Select(x => x.ToString()).ToArray();
+                            result = BinarySearch(stringArray, element.ToString());
                         }
                         else
                         {
-                            ViewBag.Result = $"Element {element} not found in the array";
+                            result = BinarySearch(array, searchTerm);
+                        }
+
+                        if (result != -1)
+                        {
+                            ViewBag.Result = $"Element {searchTerm} found at index {result}";
+                        }
+                        else
+                        {
+                            ViewBag.Result = $"Element {searchTerm} not found in the array";
                         }
                     }
                     else
@@ -68,9 +76,10 @@ namespace BinarySearchApp.Controllers
         #region IsNumericOrOrderedString
         private bool IsNumericOrOrderedString(string value)
         {
-            bool isNumeric = value.All(char.IsDigit);
-            bool isOrdered = IsOrderedString(value);
-
+            /*bool isNumeric = value.All(char.IsDigit);
+            bool isOrdered = IsOrderedString(value);*/
+            bool isNumeric = int.TryParse(value, out _);
+            bool isOrdered = string.Concat(value.OrderBy(c => c)) == value;
             return isNumeric || isOrdered;
         }
         #endregion
@@ -90,43 +99,46 @@ namespace BinarySearchApp.Controllers
         }
         #endregion
 
+        #region IsAlphabeticallyOrderedString
+        private bool IsAlphabeticallyOrderedString(string value)
+        {
+            string orderedValue = string.Concat(value.OrderBy(c => c));
+
+            return value == orderedValue;
+        } 
+        #endregion
+
+
         #endregion
 
         #region BinarySearch
-        private int BinarySearch(int[] array, int element)
+        private int BinarySearch(string[] array, string element)
         {
             int left = 0;
             int right = array.Length - 1;
-            int result = -1;
 
             while (left <= right)
             {
-                int mid = left + (right - left) / 2;
+                int middle = left + (right - left) / 2;
+                int result = string.Compare(array[middle], element);
 
-                if (array[mid] == element)
+                if (result == 0)
                 {
-                    result = mid;
-                    break;
+                    return middle;
                 }
-
-                if (array[mid] < element)
+                else if (result < 0)
                 {
-                    left = mid + 1;
+                    left = middle + 1;
                 }
                 else
                 {
-                    right = mid - 1;
+                    right = middle - 1;
                 }
             }
 
-            return result;
+            return -1;
         }
+
         #endregion
-
-
-
-
-
     }
-
 }
