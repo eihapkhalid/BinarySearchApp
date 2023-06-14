@@ -108,7 +108,6 @@ namespace BinarySearchApp.Controllers
         } 
         #endregion
 
-
         #endregion
 
         #region BinarySearch
